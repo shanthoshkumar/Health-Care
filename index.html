@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Health Care</title>
+
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script type="text/javasript" src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+
+  <script src="https://unpkg.com/ipfs-api/dist/index.min.js"></script>
+  <script src="buffer.js"></script>
+  <script src="aes.js"></script>
+<script src="./web3.min.js"></script>
+<script src="./ethereumjs-tx-1.3.3.js"></script>
+
+  <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+
+  <script src="sweetalert.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+</head>
+<style>
+  
+  h3{
+    color: #1d2869;
+  }
+  h4{
+    color: #1d2869;
+  }
+.b{
+  color: white;
+}
+.container{
+  height: 100px;
+}
+.panel-primary>.panel-heading {
+    color: #fff;
+    background-color: #1d2869;
+    border-color: #1d2869;
+}
+.centered {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  .active {
+    color: white;
+    /* background:light gray; */
+  }
+
+
+  #absolute {
+    position: absolute;
+    top: 0px;
+    right: 50px;
+  }
+
+  .btn , #log   {
+    border: 2px solid rgb(56, 114, 240);
+    background-color: white;
+    color: rgb(56, 114, 240);
+    padding: 5px 10px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  
+
+  /* Green */
+
+  .success {
+    border-color:rgb(56, 114, 240);
+    color: rgb(56, 114, 240);
+  }
+
+  .success:hover {
+    color: rgb(56, 114, 240);
+
+  }
+
+  .nav-tabs>li>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 7px 8px 0 0;
+    padding-top: 28px;
+  }
+
+  .navbar-nav>li>a {
+    padding-top: 23px;
+    padding-bottom: 17px;
+  }
+
+  div.home-banner-body {
+    background: url(health.svg) top center no-repeat ;
+    background-position: top; 
+    /* width: 100%; */
+    background-size: contain;
+    min-height: 600px;
+    background-attachment: fixed;
+    background-position-y: 100px;
+  }
+
+
+
+  .home-banner-fotter {
+    overflow: hidden;
+    height: 80px;
+    padding: 17px 0;
+    background-color: #1d2869;
+    text-align: center;
+  }
+
+  .home-banner-footer-wrapper {
+    width: auto;
+    margin: 0 auto;
+    display: inline-block;
+  }
+
+
+  .banner-footer-item {
+    float: left;
+    text-align: center;
+    color: #FFF;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+/* googleform */
+.group 			  { 
+  position:relative; 
+  margin-bottom:45px; 
+}
+.input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:300px;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+.input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+label 				 {
+  color:#999; 
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+.input:focus ~ label, .input:valid ~ label 		{
+  top:-20px;
+  font-size:14px;
+  color:#5264AE;
+}
+
+/* BOTTOM BARS ================================= */
+.bar 	{ position:relative; display:block; width:300px; }
+.bar:before, .bar:after 	{
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:1px; 
+  position:absolute;
+  background:#1d2869; 
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+.input:focus ~ .bar:before, .input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+
+/* active state */
+.input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+	from { background:skyblue; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:skyblue; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:skyblue; }
+  to 	{ width:0; background:transparent; }
+}
+a {
+    color: darkgray;
+    text-decoration: none;
+}
+
+
+</style>
+</head>
+
+<body onload="get();home();">
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+      
+          <div class="navbar-header">
+              <img src="chainflux.png" style="width:32%;height:80px">
+          </div>                    
+      </nav>
+      <div class="container-fluid home-banner-body ">
+        <div class="centered">
+             <p align="center" >
+                 <font color="white" size="22">Medical Record System </font><br><br>
+                     <!-- <img src="../assets/hc.png" alt="logo" style=width:175px;><br> -->
+                     <font color="white"><p class="text-justify"><font size="4" align="center">&nbsp;&nbsp;&nbsp;&nbsp;Health care is the maintenance or improvement of health via the prevention, diagnosis, and treatment of disease, illness, injury and other physical and mental impairments in human beings.</font></p>
+                    </font>
+        </div>
+  
+    </div>
+  <div>
+    <div class="home-banner-fotter ">
+      <div class="home-banner-footer-wrapper">
+      
+        <ul class="nav navbar-nav" class="nav navbar-nav navbar-right," style="right:50px;">
+
+          <li>
+            <a onclick="home();" id="hm"><i class="fas fa-home"></i>&nbsp;Home</a>
+          </li>
+          <li>
+            <a onclick="register();" id="add"><i class="fas fa-user-edit">&nbsp;</i>Add Patient Details</a>
+          </li>
+          <li>
+            <a onclick="upload()" id="upload"><i class="fas fa-file-upload"></i>&nbsp;Upload Documents</a>
+          </li>
+          <li>
+            <a onclick="view_details();" id="view"><i class="fa fa-clone" aria-hidden="true"></i>&nbsp;View Details</i></a>
+          </li>
+          <li > 
+              <a onclick="eraseCookie('privateKey');home();"> <span class="glyphicon">&#xe163;</span>&nbsp;Sign Out</a>
+          </li>
+         
+        </ul>
+       
+      </div>
+
+      <!-- </div> -->
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel-body ">
+      <div id="result">
+      </div>
+      <div id="result_list">
+      </div>
+    </div>
+    <div id="content" class="container">
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      // navigation click actions 
+      $('.scroll-link').on('click', function (event) {
+        event.preventDefault();
+        var sectionID = $(this).attr("data-id");
+        scrollToID('#' + sectionID, 750);
+      });
+      // scroll to top action
+      $('.scroll-top').on('click', function (event) {
+        event.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+      });
+      // mobile nav toggle
+      $('#nav-toggle').on('click', function (event) {
+        event.preventDefault();
+        $('#main-nav').toggleClass("open");
+      });
+    });
+    // scroll function
+    function scrollToID(id, speed) {
+      var offSet = 0;
+      var targetOffset = $(id).offset().top - offSet;
+      var mainNav = $('#main-nav');
+      $('html,body').animate({ scrollTop: targetOffset }, speed);
+      if (mainNav.hasClass("open")) {
+        mainNav.css("height", "1px").removeClass("in").addClass("collapse");
+        mainNav.removeClass("open");
+      }
+    }
+    if (typeof console === "undefined") {
+      console = {
+        log: function () { }
+      };
+    }
+
+    const ipfs = window.IpfsApi('ipfs.infura.io', '5001', { "protocol": 'https' })
+    web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/Vr1GWcLG0XzcdrZHWMPu'));
+    var contract_Address = '0xa107d511c07d1a956fc60007709c152dc74c8201';
+    // alert(web3.version)
+      var abi_json =[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_patient_name",
+				"type": "string"
+			},
+			{
+				"name": "_patient_birth_date",
+				"type": "uint256"
+			},
+			{
+				"name": "_place_of_birth",
+				"type": "string"
+			},
+			{
+				"name": "_gender",
+				"type": "bool"
+			}
+		],
+		"name": "get_info",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_patient_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_file_name",
+				"type": "string"
+			},
+			{
+				"name": "_ipfs_hash",
+				"type": "string"
+			}
+		],
+		"name": "store_info",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"name": "_contract_address",
+				"type": "address"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "Patient_detail_map",
+		"outputs": [
+			{
+				"name": "patient_name",
+				"type": "string"
+			},
+			{
+				"name": "patient_birth_date",
+				"type": "uint256"
+			},
+			{
+				"name": "place_of_birth",
+				"type": "string"
+			},
+			{
+				"name": "gender",
+				"type": "bool"
+			},
+			{
+				"name": "file_number",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "patient_ids",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_patient_id",
+				"type": "uint256"
+			},
+			{
+				"name": "_file_number",
+				"type": "uint256"
+			}
+		],
+		"name": "show_data",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+
+    ];
+  
+    var Healthcare_contract = new this.web3.eth.Contract(abi_json,contract_Address,{
+        // from: this.owner,
+        gasLimit: 3000000,
+      });
+
+function get()
+{
+var cookie = getCookie('privateKey');
+if(cookie == undefined){
+setCookie("");
+}
+else{
+  getCookie("privateKey");
+ register();
+}
+}
+function sendkey(){
+  var key = document.getElementById("PrivateKey").value;
+  setCookie(key)
+}
+function setCookie(key) {
+     document.cookie ='privateKey'+ "=" +key;
+     getCookie('privateKey');
+    //  console.log("successfully cookie set");     
+     }
+
+
+
+function getCookie(name) {    
+var value = "; " + document.cookie;
+    var parts = value.split("; " + name + "=");
+    if (parts.length == 2) return parts.pop().split(";").shift();     
+}
+
+function checkCookie() {
+    var user=getCookie("");
+    if (user != "") {
+        alert("Welcome again " + user);
+    } else {
+       user = prompt("Please enter your name:","");
+       if (user != "" && user != null) {
+           setCookie("username", user, 30);
+       }
+    }
+}
+
+function eraseCookie(name) { 
+  setCookie("","",-1);
+}
+
+
+    function push_info() {
+     
+      var prikey= getCookie("privateKey")
+        var a = document.getElementById("_patient_name").value;
+      var b = document.getElementById("_patient_birth_date").value;
+
+      var c = parseInt(Math.round(new Date(b).getTime() / 1000));
+      console.log(c);
+      
+      var d = document.getElementById("_place_of_birth").value;
+      var f = "";
+      if (document.getElementById("g1").checked) {
+        f = "true";
+      }
+      var gm;
+      var gf;
+      if ($('#g1').is(':checked')) {
+        gm = 1;
+      }
+      else if ($('#g2').is(':checked')) {
+        gf = 1;
+      }
+      var current_time = new Date();
+      var currenttime = parseInt(Math.round(new Date(current_time).getTime() / 1000))
+      console.log(currenttime);
+      
+      if (($('#_patient_name').val() != '' && $('#_patient_birth_date').val() != ''  && c <= currenttime && $('#_place_of_birth').val() != '') && (gm == 1 || gf == 1))
+      {
+        $('#spinner1').html('<img src="./progress.gif"  style="width: 100px">');
+
+        // var input_key="a3c0074742371bfbfa3b2ffae0cac027ab1dcecb49fa0c7ea34f640aa89b3dd4";
+
+
+        var obj = web3.eth.accounts.privateKeyToAccount('0x' + prikey);     
+        var senderAddress = obj['address'];
+        console.log(senderAddress);
+        try
+        {
+        web3.eth.getTransactionCount(senderAddress,function(err,result){
+          
+        console.log(result);
+        
+        var  nonce = result.toString(16);
+  
+        var privateKey = ethereumjs.Buffer.Buffer(prikey,'hex'); 
+       
+        var contractFunction = Healthcare_contract.methods.get_info(a,c,d,f);  
+        var functionAbi = contractFunction.encodeABI()
+        var  txParams  = {
+         nonce: '0x' +nonce,
+         gasPrice:  '0x4A817C800',
+         gasLimit: 4000000,
+         from :senderAddress,
+         to: contract_Address,
+         value: '0x00',
+         data: functionAbi
+       }      
+       var tx = new ethereumjs.Tx(txParams);
+       tx.sign(privateKey);
+       const serializedTx = tx.serialize();
+       web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', receipt =>{
+        console.log(receipt);
+        console.log(receipt['transactionHash']);
+        mining2(receipt['transactionHash']);
+       })
+      })
+      document.getElementById("_patient_name").value = null;
+      document.getElementById("_patient_birth_date").value = null;
+      document.getElementById("_place_of_birth").value= null;
+      document.getElementById("g1").checked = null;
+      document.getElementById("g2").checked = null;
+     }
+     catch
+     {
+       console.log(error)
+     }
+    }       
+     else
+         {
+            $('#_patient_name').val('');
+            $('#_patient_birth_date').html('');
+            $('#_patient_birth_date').val('');
+            $('#_place_of_birth').val('');
+            // $("g1").val('') ;
+            // $("g1").val('');
+            document.getElementById("g1").checked = null;
+             document.getElementById("g2").checked = null;
+            swal("Enter all Details Correctly");
+            
+          }
+
+
+ 
+     
+          
+    }
+
+    function mining(hash) {
+      var accountInterval = setInterval(function () {
+        web3.eth.getTransactionReceipt(hash, function (err, result) {
+          $('#spinner-2').html('<img src="./progress.gif"  style="width: 100px">');
+          if (result !== null) {
+            clearInterval(accountInterval)
+
+            if (result.status == 0x1) {
+              $('#spinner-2').html('');
+              swal("Success");
+            }
+            else {
+
+              swal("reverted");
+
+            }
+
+          }
+
+        }) //ethereumjs.Buffer.Buffer()
+      }, 1000)
+    }
+
+    function mining2(hash) {
+      var accountInterval = setInterval(function () {
+        web3.eth.getTransactionReceipt(hash, function (err, result) {
+             if (result !== null) {
+            clearInterval(accountInterval)
+
+            if (result.status == 0x1) {
+              Healthcare_contract.methods.patient_ids().call(function (err, resu) {
+                if (!err) {
+                  
+                  $('#spinner1').html('');
+
+                  $('#_patient_name').html('');
+                  $('#_patient_birth_date').html('');
+                  $('#_place_of_birth').html('')
+
+
+                  swal("patient id:  " + (parseInt(resu)))
+                }
+                else {
+                  swal("error");
+                }
+              });
+
+
+              swal("Success");
+
+            }
+            else {
+
+              swal("reverted");
+
+            }
+
+          }
+          // swal("success")
+        })
+      }, 1000)
+    }
+
+    ///////////////////////////   
+
+    function show_details() {
+
+
+      $("#_patient_name_show").html('');
+      $("#_patient_birth_date_show").html('');
+      $("#_place_of_birth_show").html('');
+      $("#_gender_show").html('');
+      $("#links").html('');
+      $( "#buttondisplay" ).hide();
+  var pass = $("#patient_pass_pull").val()
+      var a = parseInt(document.getElementById("patient_id_pull").value);
+
+      Healthcare_contract.methods.Patient_detail_map(a).call(function (err, res) {                                      
+        if (res[4] == 0) {
+          Healthcare_contract.methods.Patient_detail_map(a).call(function (error, result) {
+            if (!error) {
+              if (result[0] == '') {
+                $("#_patient_name_show").val('');
+                $("#_patient_birth_date_show").val('');
+                $("#_place_of_birth_show").val('');
+                $("#_gender_show").val('');
+                $("#links").html('');
+                swal("Invalid Patient Id");
+              }
+              else {
+                document.getElementById("_patient_name_show").value = result[0];
+                var date = new Date(result[1] * 1000).toLocaleDateString();
+                document.getElementById("_patient_birth_date_show").value = date;
+                document.getElementById("_place_of_birth_show").value = result[2];
+
+                if (result[3] == true) {
+                  document.getElementById("_gender_show").value = "male";
+                }
+                else if (result[3] == false) {
+                  document.getElementById("_gender_show").value = "female";
+                }
+              }
+            }
+          });
+          $("#buttondisplay").show();    
+        }
+        else 
+        {
+         
+          try{
+            
+          for (i = 1; i <= res[4]; i++) {
+            Healthcare_contract.methods.show_data(a,i).call(function (erro, rest) {
+              if (!erro) {
+                // $("#links").append("<a>Download</a>")
+                $.get("https://ipfs.infura.io/ipfs/" + rest[1], function (result) {
+                 
+                  var decrypted = CryptoJS.AES.decrypt(result, pass).toString(CryptoJS.enc.Latin1);
+                  if (!/^data:/.test(decrypted)) {
+                    $('#footer').html('')
+                    $('#footer').html('<h4 style="color:red"><i>Invalid pass phrase or file! Please try again.</i></h4>')
+                    $("#patient_pass_pull").val('');
+                    // alert("Invalid pass phrase or file! Please try again.");
+                    return false;
+                  }
+                  else {
+                    $('#footer').html('')
+                    $('#footer').html('<h4 style="color:green"><i>Passphrase Matched!... You can Download Your File</i></h4>')
+                  }
+                  // console.log(decrypted);
+                  blob = new Blob([decrypted], { type: "octet/stream" })
+                 
+                  $("#links").append("<a type='data:application/octet-stream' download='" + rest[0] + "' class='height' href='" + decrypted + "' >" + rest[0] + "</a><br>")                
+                
+                });
+
+              }
+              else {
+                // swal("error");
+              }
+            });
+
+            Healthcare_contract.methods.Patient_detail_map(a).call(function (error, result) {
+              if (!error) {
+                $('#_patient_birth_date_show').val();
+                $('#_gender_show').val();
+                $('#_gender_show').val();
+                document.getElementById("_patient_name_show").value = result[0];
+                var date = new Date(result[1] * 1000).toLocaleDateString();
+
+                if ($('#patient_id_pull').val() != '') {
+                  document.getElementById("_patient_birth_date_show").value = date;
+                }
+
+                document.getElementById("_place_of_birth_show").value = result[2];
+
+
+                if ($('#patient_id_pull').val() != '') {
+
+                  if (result[3] == true) {
+                    document.getElementById("_gender_show").value = "male";
+                  }
+                  else if (result[3] == false) {
+                    document.getElementById("_gender_show").value = "female";
+                  }
+                }
+                else {
+                  // swal("error");
+                }
+              }
+            });
+          }  
+          // $("#patient_id_pull").val('');
+          $("#patient_pass_pull").val('');  
+          // $("#_patient_name_show").val('');  
+          // $("#_patient_birth_date_show").val('');    
+          // $("#_place_of_birth_show").val('');     
+          // $("#_gender_show").val(''); 
+          // $("#links").html('');                                                                
+          $("#buttondisplay").show();     
+          }
+       catch
+       {
+         console.log(error);      
+       }
+      }
+      })    
+}
+   
+
+    function upload() {
+      var prikey= getCookie("privateKey")
+      if(prikey.length<64){        
+        home();       
+      }
+      else{
+     
+      $("#result").html('')
+      $("#result").removeAttr('style')
+      $("#content").html('')
+      $("#result_list").html('')
+      $("#hm").removeClass("active");
+      $("#add").removeClass("active");
+      $("#upload").addClass("active");
+      $("#view").removeClass("active")
+      $('#spinner-2').html('');
+      $("#result").html('<div class="row"><div class="col-sm-2"></div><div class="col-sm-10"> <h3>Upload Document</h3><br><br> <div  id="target" >\
+          <div class="col-sm-12">\
+      <div class="col-sm-12">\
+        <div class="group"> <input class="input" type="text" id="patient_id_push" #Patient ID required>\
+             <span class="highlight"></span>\
+           <span class="bar"></span>\
+             <label>Enter Patient ID</label>\
+           </div>\
+    </div>\
+    <div class="col-sm-12">\
+        <div class="group"> <input class="input" type="text" id="file_name_push" required>\
+             <span class="highlight"></span>\
+            <span class="bar"></span>\
+             <label>Enter File Name</label>\
+           </div>\
+    </div>\
+    <div class="col-sm-12">\
+        <div class="group"> <input class="input" type="password" id="secret"  required>\
+             <span class="highlight"></span>\
+          <span class="bar"></span>\
+           <label>Enter Passphrase(minimum 5 character)</label>\
+        </div>\
+    </div>\
+    <div class="col-sm-12">\
+    <div class="row">\
+    <div class="col-sm-4" id="pick">\
+      <p for="data" ><b>Choose a File to Encrypt:</b></p><input type="file" id="data" class="form-control"/><br>\
+    </div>\
+  </div>\
+</div>\
+    <div class="col-sm-12" id="file_holder">\
+    </div>\
+    </div>\
+    <div class="col-sm-12">\
+    <div class="col-sm-6" id="key">\
+    </div>\
+    </div>\
+  </div>\
+  <div  id="spinner-2"><br><br>\
+    </div>\
+  </div>\
+</div>\
+  </div>\
+')
+ 
+      $('#pick').hide();
+      var status1 = false;
+      var status2 = false;
+      $('#patient_id_push').on('change', function (e) {
+        status1 = true;
+        // console.log(e.target.value+status1)
+
+      });
+      $('#file_name_push').on('change', function (e) {
+        status2 = true
+        // console.log(e.target.value+status2)
+      });
+
+
+      $('#secret').on('input', function (e) {
+
+        if ($('#secret').val().length < 5) {
+          $('#foot').html('<h4 style="color:red"><i>Passphrase Must be atleast 5 character</i></h4>')
+        }
+        else {
+          $('#foot').html('<h4 style="color:green"><i>You need to remember your passphrase for Downloading the File</i></h4>')
+        }
+      })
+
+      // if(status1 && status2 ==true &&  $('#secret').val().length >5)
+      // {
+
+      //   $('#pick').show();
+      // }
+      // else
+      // {
+      //   $('#pick').hide();
+      // }
+
+      $('#target').on('input', function () {
+        if (status1 && status2 == true && $('#secret').val().length >= 5) {
+
+          $('#pick').show();
+        }
+        else {
+          $('#pick').hide();
+        }
+      })
+
+
+
+      $('#data').on('change', function (e) {
+        // console.log(e);
+        var file = null;
+        var password = $('#secret').val();
+        var a = $('#patient_id_push').val();
+        var b = $('#file_name_push').val();
+        // Has a file been selected?
+        // console.log("b1"+b);
+        if (e.target.files.length != 1) {
+          swal('Please select a file to encrypt!');
+          return false;
+        }
+
+        file = e.target.files[0];
+        console.log(file.name);
+        
+        var file_extension = file.name.trim().split(".")[1];
+        b = b +"."+file_extension;
+        console.log("b2"+b);
+
+        if (file.size > 1024 * 1024) {
+          swal('These application allows you to choose files smaller than 1mb.\n otherwise, your browser may crash');
+          // return;
+        }
+        try{
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          // console.log(e.target.result);
+          encrypted = CryptoJS.AES.encrypt(e.target.result, password);
+
+          const files = [{ path: '/' + a.trim() + '/' + file.name, content: encrypted }]
+
+          const buf = buffer.Buffer(encrypted.toString());
+          //  console.log(buf); 
+
+          ipfs.files.add(buf, function (err, ipfsHash) {
+            if (!err) {
+
+              let hash = ipfsHash[0].hash;
+              // console.log(a,b,hash);
+              // var input_key="a3c0074742371bfbfa3b2ffae0cac027ab1dcecb49fa0c7ea34f640aa89b3dd4";
+
+              const obj = web3.eth.accounts.privateKeyToAccount('0x' + prikey);
+
+              var senderAddress = obj['address'];
+              web3.eth.getTransactionCount(senderAddress,function(err,result){
+              console.log(result);
+              var  nonce = result.toString(16);
+
+              const privateKey = ethereumjs.Buffer.Buffer(prikey,'hex'); 
+
+              const contractFunction = Healthcare_contract.methods.store_info(a,b,hash);  
+              const functionAbi = contractFunction.encodeABI()
+              var  txParams  = {
+                nonce: '0x' +nonce,
+                gasPrice:  '0x4A817C800',
+                gasLimit: 4000000,
+                from :senderAddress,
+                to: contract_Address,
+                value: '0x00',
+                data: functionAbi
+              }      
+              var tx = new ethereumjs.Tx(txParams);
+              tx.sign(privateKey);
+              const serializedTx = tx.serialize();
+              web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex')).on('receipt', receipt =>{
+              console.log(receipt);
+              console.log(receipt['transactionHash']);
+              mining(receipt['transactionHash'])
+                        
+              })
+            })  
+              // _contract_address.store_info.sendTransaction(a, b, hash, function (errors, results) {
+              //   if (!errors) {
+              //     mining(results)
+              //   }
+              //   else {
+              //     // console.log("error");
+                  $('#patient_id_push').val('')
+                  $('#file_name_push').val('')
+                  $('#data').val('')
+                  $('#secret').val('')
+              //   }
+              // });
+            }
+            else {
+              console.log(err);
+
+            }
+          })
+        };
+      }
+      catch
+      {
+        console.log(error)
+      }
+
+        reader.readAsDataURL(file);
+
+
+    
+      });
+}
+    }
+
+    $('#encrypt').click(function () {
+      var password = $('#secret').val();
+
+      $('#secret').val('');
+      if (password.length < 5) {
+        swal('Please choose a longer password!');
+      }
+    });
+
+  
+function register() {
+  var prikey= getCookie("privateKey")    
+      if(prikey.length<64){        
+        home();       
+      }
+      else{
+      $("#result").html('')
+      $("#spinner1").html('')
+      $("#result").removeAttr('style')
+      $("#content").html('')
+      $("#result_list").html('')
+      $("#hm").removeClass("active");
+      $("#add").addClass("active");
+      $("#upload").removeClass("active");
+      $("#view").removeClass("active");
+      $("#result").html('<div class="row"><div class="col-sm-2"></div><div class="col-sm-10"><h3>Patient Registration</h3><br><br>  <div class="col-sm-12">\
+         <div class="col-sm-6">\
+          <div class="group"> <input class="input" type="text" id="_patient_name" #patient name required>\
+            <span class="highlight"></span>\
+            <span class="bar"></span>\
+            <label>Enter Patient Name</label>\
+          </div>\
+          <div>\
+          <h4 for="_patient_birth_date">Birth date:</h4>\
+        <input type="date"  name="bday" id="_patient_birth_date"><br>\
+      </div><br><br>\
+          <div class="group"> <input class="input" type="text" id="_place_of_birth" #Birth place required>\
+            <span class="highlight"></span>\
+            <span class="bar"></span>\
+            <label>Enter Birth place</label>\
+          </div>\
+          <div>\
+          <h4 for="radio">Gender:</h4>\
+        <p><input type="radio" name="optradio" id="g1" value="1"> Male</p>\
+        <p><input type="radio" name="optradio" id="g2" value="0"> Female</p><br>\
+        </div>\
+          <div>\
+        <input type="button" class="btn success" value="Save" onclick="push_info()">\
+         </div><br>\
+         <div id="spinner1">\
+          </div>\
+         </div>\
+         </div>')
+}
+    } 
+    
+    function view_details() {
+      var prikey= getCookie("privateKey")      
+      if(prikey.length<64){        
+        home();       
+      }
+      else{
+      $("#result").html('')
+      // $("#result").attr("style","border-right: 2px solid #FF9800;")
+      $("#content").html('')
+      $("#result_list").html('')
+      $("#hm").removeClass("active");
+      $("#add").removeClass("active");
+      $("#upload").removeClass("active");
+      $("#view").addClass("active");
+      $("#result").html(' <form class="col-sm-10">\
+      <center><h3>Patient Details</h3></center><br><br>\
+        <div class="col-sm-12">\
+        <div class="col-sm-12">\
+        <div class="group">  \
+            <input class="input" type="text" id="patient_id_pull" required>\
+                <span class="highlight"></span>\
+                <span class="bar"></span>\
+                <label >Enter Patient Id</label>\
+              </div>\
+        </div>\
+        <div class="col-sm-12">\
+        <div class="group">  \
+            <input class="input" type="password" id="patient_pass_pull" required>\
+                <span class="highlight"></span>\
+                <span class="bar"></span>\
+                <label >Enter Patient Password</label>\
+              </div>\
+        </div>\
+        <div  id="buttondisplay" class="col-sm-12">\
+          <br> \
+        <input type="button" class="btn success" value="Show details" onclick="show_details()">\
+        &nbsp;&nbsp;&nbsp;&nbsp;<label id="download"></label>\
+        </div>\
+        </div>\
+        <div class="col-sm-12">\
+        <div class="col-sm-12"><br> \
+        <div class="row">\
+          <div class="col-sm-6">\
+        <h4><b>Patient Name:</b></h4>\
+        <input type="text" class="form-control"  id="_patient_name_show" readonly>\
+        </div>\
+      </div>\
+      </div>\
+        <div class="col-sm-12"><br>\
+          <div class="row">\
+          <div class="col-sm-6">\
+        <h4><b>Birth date:</b></h4>\
+        <input type="text" class="form-control"  id="_patient_birth_date_show" readonly>\
+        </div>\
+      </div>\
+      </div>\
+        </div>\
+        <div class="col-sm-12">\
+        <div class="col-sm-12"><br>\
+          <div class="row">\
+          <div class="col-sm-6">\
+        <h4><b>Birth place:</b></h4>\
+        <input type="text" class="form-control"  id="_place_of_birth_show" readonly>\
+        </div>\
+      </div>\
+      </div>\
+        <div class="col-sm-12"><br>\
+          <div class="row">\
+          <div class="col-sm-6">\
+        <h4><b>Gender:</b></h4>\
+        <input type="text" class="form-control" id="_gender_show" readonly><br><br>\
+      </div>\
+        </div>\
+      </div>\
+      </div>\
+      </div>\
+      <h4 id="footer"><br><br><br> </h4>\
+  </form>');
+      $("#result_list").append('<div class="col-sm-2" ><br><br>\
+          <div class="bs-example" >\
+          <div class="panel panel-primary">\
+        <div class="panel-heading">\
+            <h3 class="panel-title" style="color:black;height:30px"><b class="b">Files:</b>\
+        </div>\
+        <div class="panel-body pre-scrollable" id="links"></div>\
+    </div>\
+</div>')
+}
+    }
+    function home() {
+      var prikey= getCookie("privateKey")
+      if(prikey.length<64){        
+      $("#result").html('')
+      $("#result_list").html('')
+      $("#hm").addClass("active");
+      $("#add").removeClass("active");
+      $("#upload").removeClass("active");
+      $("#view").removeClass("active");
+      $("#content").html('<div class="row"><div class="col-sm-3"></div>\
+      <div class="col-sm-6"><h4><font color="blue">Private key</font></h4>\
+ <input type="text" class="form-control" id="PrivateKey" placeholder="Enter your private key"></div><br><br>\
+ <input type="button" value="Sign in" id="log" onclick="sendkey();register();">\
+ <img src="healthlogo.png" alt="" width="460" height="345">\
+ <div class="col-sm-3"></div>')
+ }
+  
+    }
+  </script>
+</body>
+
+</html>
